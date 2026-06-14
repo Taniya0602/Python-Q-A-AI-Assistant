@@ -1,21 +1,16 @@
-# Core
+# Core API
 fastapi==0.115.14
-# Free LLM providers (pick what you use)
-langchain-groq           # Groq — free tier
-langchain-google-genai   # Google Gemini — free tier
-langchain-ollama         # Ollama — fully local/free
-# Paid (optional)
-# langchain-anthropic
-# langchain-openai
 uvicorn[standard]==0.34.3
 pydantic==2.11.7
 pydantic-settings==2.11.0
 
-# RAG / LLM
+# LLM — Google Gemini via official SDK
+google-genai>=1.0.0
+
+# RAG — LangChain used for retrieval only (FAISS + embeddings)
 langchain==0.3.30
 langchain-community==0.3.31
 langchain-core==0.3.86
-langchain-anthropic==0.3.22
 langchain-huggingface==0.3.1
 
 # Embeddings & Vector Store
