@@ -46,13 +46,11 @@ class RAGPipeline:
         logger.info("Initialising Google GenAI client...")
         self.client = genai.Client(api_key=settings.google_api_key)
 
-        logger.info("Loading embedding model...")
-        from langchain_huggingface import HuggingFaceEmbeddings
+        logger.info("Loading embedding model (fastembed / ONNX)...")
+        from langchain_community.embeddings import FastEmbedEmbeddings
 
-        self.embeddings = HuggingFaceEmbeddings(
+        self.embeddings = FastEmbedEmbeddings(
             model_name=settings.embedding_model,
-            model_kwargs={"device": "cpu"},
-            encode_kwargs={"normalize_embeddings": True},
         )
 
         store_path = Path(settings.vector_store_path)

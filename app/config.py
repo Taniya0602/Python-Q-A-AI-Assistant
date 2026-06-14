@@ -9,7 +9,7 @@ class Settings(BaseSettings):
 
     llm_provider: str = "google"  # kept for reference
 
-    embedding_model: str = "all-MiniLM-L6-v2"
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     vector_store_path: str = "data/faiss_index"
     top_k: int = 5
 

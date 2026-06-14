@@ -11,10 +11,9 @@ google-genai>=1.0.0
 langchain==0.3.30
 langchain-community==0.3.31
 langchain-core==0.3.86
-langchain-huggingface==0.3.1
 
-# Embeddings & Vector Store
-sentence-transformers==5.1.2
+# Embeddings — fastembed uses ONNX (no PyTorch, ~80MB vs ~400MB)
+fastembed>=0.4.0
 faiss-cpu==1.13.0
 
 # Data Processing
