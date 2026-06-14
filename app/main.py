@@ -62,7 +62,13 @@ async def ask(request: QuestionRequest):
         answer, sources, latency_ms = rag_pipeline.ask(request.question, request.top_k)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
-    except Exception:
+    except Exception as exc:
+        err = str(exc)
+        if "429" in err or "RESOURCE_EXHAUSTED" in err:
+            raise HTTPException(
+                status_code=429,
+                detail="Free-tier API quota reached (20 requests/day for Gemini 2.5 Flash). Quota resets in ~24 hours. Please try again later.",
+            )
         logger.exception("Error while processing question")
         raise HTTPException(status_code=500, detail="An internal error occurred while processing your question.")
 
