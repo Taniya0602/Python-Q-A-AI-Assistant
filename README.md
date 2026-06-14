@@ -4,6 +4,15 @@ An AI-powered question-answering system for Python learners, built on a **RAG (R
 
 > **Assessment:** Analytics Vidhya — AI Engineer Round 1
 
+## 🚀 Live Demo
+
+| | URL |
+|---|---|
+| **Frontend (Chat UI)** | https://python-qa-assistant-rjuk298t0-sofia-ai.vercel.app |
+| **Backend API** | https://python-q-a-ai-assistant.onrender.com |
+| **API Docs (Swagger)** | https://python-q-a-ai-assistant.onrender.com/docs |
+| **Health Check** | https://python-q-a-ai-assistant.onrender.com/health |
+
 ---
 
 ## Architecture
