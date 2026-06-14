@@ -1,0 +1,33 @@
+# Secrets — never commit
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+
+# Data — large/generated files
+data/raw/
+data/faiss_index/
+data/processed.json
+
+# Frontend
+node_modules/
+frontend/.next/
+frontend/node_modules/
+
+# OS
+.DS_Store
+notebooks/.ipynb_checkpoints/
+
+# Temp build scripts
+build_deck.js

@@ -1,0 +1,408 @@
+[
+  {
+    "id": 1,
+    "category": "Basic Operations",
+    "question": "How do I reverse a list in Python?",
+    "answer": "There are three main ways to reverse a list in Python:\n\n1.  **Slicing** (creates a new list):\n    ```python\n    my_list = [1, 2, 3, 4, 5]\n    reversed_list = my_list[::-1]\n    print(reversed_list)  # [5, 4, 3, 2, 1]\n    ```\n\n2.  **`list.reverse()`** (in-place, returns None):\n    ```python\n    my_list.reverse()\n    print(my_list)  # [5, 4, 3, 2, 1]\n    ```\n\n3.  **`reversed()` built-in** (returns an iterator):\n    ```python\n    for item in reversed(my_list):\n        print(item)\n    ```\nUse slicing when you want a new list; use `.reverse()` when you want to modify in place; use `reversed()` when iterating.",
+    "sources": [
+      {
+        "title": "How do I reverse a list in Python?",
+        "score": 150.0,
+        "snippet": "Q: How do I reverse a list in Python?\n\nA: There are three main ways to reverse a list in Python:\n\n1. **Slicing** (creates a new list):\n```python\nmy_list = [1, 2, 3, 4, 5]\nreversed_list = my_list[::-1]\nprint(reversed_list)  # [5, 4, 3, 2, 1]\n```\n\n2. *..."
+      },
+      {
+        "title": "How do I convert a string to a list and back in Python?",
+        "score": 100.0,
+        "snippet": "Q: How do I convert a string to a list and back in Python?\n\nA: **String \u2192 list of characters:**\n```python\nchars = list('hello')      # ['h', 'e', 'l', 'l', 'o']\n```\n\n**String \u2192 list of words (split):**\n```python\nwords = 'hello world'.split()       # ..."
+      },
+      {
+        "title": "How do I sort a list of dictionaries by a key in Python?",
+        "score": 160.0,
+        "snippet": "Q: How do I sort a list of dictionaries by a key in Python?\n\nA: Use the `key` argument of `sorted()` or `list.sort()` with a lambda or `operator.itemgetter`:\n\n```python\npeople = [\n    {'name': 'Alice', 'age': 30},\n    {'name': 'Bob',   'age': 25},\n  ..."
+      },
+      {
+        "title": "How do I flatten a nested list in Python?",
+        "score": 115.0,
+        "snippet": "Q: How do I flatten a nested list in Python?\n\nA: **One level deep \u2014 list comprehension:**\n```python\nnested = [[1, 2], [3, 4], [5, 6]]\nflat = [x for sublist in nested for x in sublist]\n# [1, 2, 3, 4, 5, 6]\n```\n\n**One level \u2014 `itertools.chain.from_iter..."
+      },
+      {
+        "title": "What is a list comprehension in Python and how do I use it?",
+        "score": 180.0,
+        "snippet": "Q: What is a list comprehension in Python and how do I use it?\n\nA: A list comprehension creates a new list by applying an expression to each item in an iterable, optionally filtering with a condition.\n\nSyntax: `[expression for item in iterable if con..."
+      }
+    ],
+    "latency_ms": 3409.0,
+    "keywords_found": [
+      "reverse",
+      "[::-1]",
+      ".reverse()"
+    ],
+    "pass": true
+  },
+  {
+    "id": 2,
+    "category": "Data Structures",
+    "question": "What is the difference between a list and a tuple in Python?",
+    "answer": "A list and a tuple in Python differ primarily in their mutability, syntax, performance, and hashability.\n\nHere's a breakdown of their differences:\n\n| Feature      | List `[]`         | Tuple `()`          |\n|--------------|-------------------|---------------------|\n| Mutability   | Mutable           | Immutable           |\n| Syntax       | `[1, 2, 3]`       | `(1, 2, 3)`         |\n| Performance  | Slightly slower   | Slightly faster     |\n| Hashable     | No                | Yes (if elements are)|\n| Use case     | Collections that change | Fixed records |\n\n**Code Examples:**\n\n```python\n# List \u2014 can be modified\nmy_list = [1, 2, 3]\nmy_list[0] = 99       # OK\nmy_list.append(4)     # OK\n\n# Tuple \u2014 immutable\npoint = (10, 20)\npoint[0] = 99         # TypeError!\n\n# Tuple as dict key (hashable)\nlocation = {(0, 0): 'origin'}\n```\n\nChoose tuples for data that should not change (e.g., coordinates, RGB values); use lists for dynamic collections that require modification.",
+    "sources": [
+      {
+        "title": "What is the difference between a list and a tuple in Python?",
+        "score": 170.0,
+        "snippet": "Q: What is the difference between a list and a tuple in Python?\n\nA: | Feature      | List `[]`         | Tuple `()`          |\n|--------------|-------------------|---------------------|\n| Mutability   | Mutable           | Immutable           |\n| Syn..."
+      },
+      {
+        "title": "How do I use enumerate in Python?",
+        "score": 125.0,
+        "snippet": "Q: How do I use enumerate in Python?\n\nA: `enumerate` adds an automatic counter to any iterable, returning `(index, value)` pairs:\n\n```python\nfruits = ['apple', 'banana', 'cherry']\n\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n# 0 apple\n# 1 ..."
+      },
+      {
+        "title": "What is a list comprehension in Python and how do I use it?",
+        "score": 180.0,
+        "snippet": "Q: What is a list comprehension in Python and how do I use it?\n\nA: A list comprehension creates a new list by applying an expression to each item in an iterable, optionally filtering with a condition.\n\nSyntax: `[expression for item in iterable if con..."
+      },
+      {
+        "title": "What is the difference between append and extend in Python lists?",
+        "score": 100.0,
+        "snippet": "Q: What is the difference between append and extend in Python lists?\n\nA: `append` adds a single element to the end of a list.\n`extend` adds every element from an iterable to the end of a list.\n\n```python\na = [1, 2, 3]\na.append([4, 5])   # [1, 2, 3, [..."
+      },
+      {
+        "title": "How do I reverse a list in Python?",
+        "score": 150.0,
+        "snippet": "Q: How do I reverse a list in Python?\n\nA: There are three main ways to reverse a list in Python:\n\n1. **Slicing** (creates a new list):\n```python\nmy_list = [1, 2, 3, 4, 5]\nreversed_list = my_list[::-1]\nprint(reversed_list)  # [5, 4, 3, 2, 1]\n```\n\n2. *..."
+      }
+    ],
+    "latency_ms": 2625.2,
+    "keywords_found": [
+      "mutable",
+      "immutable",
+      "tuple",
+      "list"
+    ],
+    "pass": true
+  },
+  {
+    "id": 3,
+    "category": "Functional Programming",
+    "question": "How do list comprehensions work in Python?",
+    "answer": "A list comprehension creates a new list by applying an expression to each item in an iterable, optionally filtering with a condition. They are considered more Pythonic and are faster than equivalent `for` loops.\n\nThe syntax is: `[expression for item in iterable if condition]`\n\nHere are some examples:\n\n```python\n# Squares of even numbers\nsquares = [x**2 for x in range(10) if x % 2 == 0]\n# [0, 4, 16, 36, 64]\n\n# Flatten a 2-D list\nmatrix = [[1, 2], [3, 4], [5, 6]]\nflat = [num for row in matrix for num in row]\n# [1, 2, 3, 4, 5, 6]\n\n# Conditional expression\nlabels = ['even' if x % 2 == 0 else 'odd' for x in range(5)]\n# ['even', 'odd', 'even', 'odd', 'even']\n```\n\nList comprehensions are often clearer than using `map` and `filter` functions for similar tasks. For instance:\n\n```python\nnums = [1, 2, 3, 4, 5]\n\n# Equivalent to map\nsquares = [x**2 for x in nums]\n# [1, 4, 9, 16, 25]\n\n# Equivalent to filter\nevens   = [x for x in nums if x % 2 == 0]\n# [2, 4]\n```",
+    "sources": [
+      {
+        "title": "What is a list comprehension in Python and how do I use it?",
+        "score": 180.0,
+        "snippet": "Q: What is a list comprehension in Python and how do I use it?\n\nA: A list comprehension creates a new list by applying an expression to each item in an iterable, optionally filtering with a condition.\n\nSyntax: `[expression for item in iterable if con..."
+      },
+      {
+        "title": "How do I convert a string to a list and back in Python?",
+        "score": 100.0,
+        "snippet": "Q: How do I convert a string to a list and back in Python?\n\nA: **String \u2192 list of characters:**\n```python\nchars = list('hello')      # ['h', 'e', 'l', 'l', 'o']\n```\n\n**String \u2192 list of words (split):**\n```python\nwords = 'hello world'.split()       # ..."
+      },
+      {
+        "title": "How do Python's `map` and `filter` functions work?",
+        "score": 115.0,
+        "snippet": "Q: How do Python's `map` and `filter` functions work?\n\nA: `map(func, iterable)` applies `func` to every element.\n`filter(func, iterable)` keeps elements where `func` returns truthy.\n\n```python\nnums = [1, 2, 3, 4, 5]\n\nsquares = list(map(lambda x: x**2..."
+      },
+      {
+        "title": "What is the difference between a list and a tuple in Python?",
+        "score": 170.0,
+        "snippet": "Q: What is the difference between a list and a tuple in Python?\n\nA: | Feature      | List `[]`         | Tuple `()`          |\n|--------------|-------------------|---------------------|\n| Mutability   | Mutable           | Immutable           |\n| Syn..."
+      },
+      {
+        "title": "How do I use enumerate in Python?",
+        "score": 125.0,
+        "snippet": "Q: How do I use enumerate in Python?\n\nA: `enumerate` adds an automatic counter to any iterable, returning `(index, value)` pairs:\n\n```python\nfruits = ['apple', 'banana', 'cherry']\n\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n# 0 apple\n# 1 ..."
+      }
+    ],
+    "latency_ms": 4026.8,
+    "keywords_found": [
+      "comprehension",
+      "for",
+      "if"
+    ],
+    "pass": true
+  },
+  {
+    "id": 4,
+    "category": "File I/O",
+    "question": "How do I read a file line by line in Python?",
+    "answer": "The most memory-efficient way to read a file line by line in Python is to iterate over the file object directly:\n\n```python\nwith open('file.txt', 'r', encoding='utf-8') as f:\n    for line in f:\n        print(line.strip())  # strip() removes the trailing newline\n```\n\nAlways use a `with` block so the file is closed automatically even if an exception occurs.\n\nFor large files, you can use a generator to yield lines one at a time, processing files larger than RAM:\n\n```python\ndef read_lines(path, skip_empty=True):\n    \"\"\"Yield lines from a file one at a time.\"\"\"\n    with open(path, encoding='utf-8') as f:\n        for line in f:\n            line = line.rstrip('\\n')\n            if skip_empty and not line:\n                continue\n            yield line\n\nfor line in read_lines('huge_log.txt'):\n    process(line)  # only one line in memory at a time\n```\n\nTo get all lines as a list:\n\n```python\nwith open('file.txt') as f:\n    lines = f.readlines()  # list of strings with newlines\n    # or\n    lines = f.read().splitlines()  # list without newlines\n```",
+    "sources": [
+      {
+        "title": "How do I read a file line by line in Python?",
+        "score": 120.0,
+        "snippet": "Q: How do I read a file line by line in Python?\n\nA: The most memory-efficient way is to iterate over the file object directly:\n```python\nwith open('file.txt', 'r', encoding='utf-8') as f:\n    for line in f:\n        print(line.strip())  # strip() remo..."
+      },
+      {
+        "title": "How do I read and write CSV files in Python?",
+        "score": 120.0,
+        "snippet": "Q: How do I read and write CSV files in Python?\n\nA: **Built-in `csv` module:**\n```python\nimport csv\n\n# Write\nwith open('data.csv', 'w', newline='') as f:\n    writer = csv.DictWriter(f, fieldnames=['name', 'age'])\n    writer.writeheader()\n    writer.w..."
+      },
+      {
+        "title": "How do I handle command-line arguments in Python with argparse?",
+        "score": 125.0,
+        "snippet": "Q: How do I handle command-line arguments in Python with argparse?\n\nA: ```python\nimport argparse\n\nparser = argparse.ArgumentParser(\n    description='Process some integers.',\n    formatter_class=argparse.ArgumentDefaultsHelpFormatter,\n)\n\n# Positional ..."
+      },
+      {
+        "title": "How do I write a generator that reads a large file efficiently?",
+        "score": 155.0,
+        "snippet": "Q: How do I write a generator that reads a large file efficiently?\n\nA: Generators let you process files larger than RAM by yielding one chunk at a time:\n\n```python\ndef read_lines(path, skip_empty=True):\n    \"\"\"Yield lines from a file one at a time.\"\"..."
+      },
+      {
+        "title": "How do I convert a string to a list and back in Python?",
+        "score": 100.0,
+        "snippet": "Q: How do I convert a string to a list and back in Python?\n\nA: **String \u2192 list of characters:**\n```python\nchars = list('hello')      # ['h', 'e', 'l', 'l', 'o']\n```\n\n**String \u2192 list of words (split):**\n```python\nwords = 'hello world'.split()       # ..."
+      }
+    ],
+    "latency_ms": 4317.4,
+    "keywords_found": [
+      "open",
+      "with",
+      "readline",
+      "for"
+    ],
+    "pass": true
+  },
+  {
+    "id": 5,
+    "category": "OOP",
+    "question": "How do I use decorators in Python?",
+    "answer": "Decorators in Python are functions that wrap another function to extend or modify its behavior without changing its source code.\n\nTo use a decorator, you define the decorator function and then apply it to another function using the `@` syntax.\n\nHere's an example of a basic decorator:\n\n```python\nimport functools\n\ndef my_decorator(func):\n    @functools.wraps(func)  # preserves func's metadata\n    def wrapper(*args, **kwargs):\n        print('Before call')\n        result = func(*args, **kwargs)\n        print('After call')\n        return result\n    return wrapper\n\n@my_decorator\ndef say_hello(name):\n    print(f'Hello, {name}!')\n\nsay_hello('Alice')\n# Before call\n# Hello, Alice!\n# After call\n```\n\nDecorators can also accept arguments. This requires an extra layer in the decorator definition:\n\n```python\ndef repeat(n):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            for _ in range(n):\n                func(*args, **kwargs)\n        return wrapper\n    return decorator\n\n@repeat(3)\ndef greet():\n    print('Hi!')\n```\n\nIt is important to always use `@functools.wraps` when writing decorators to preserve the original function's metadata, such as `__name__` and `__doc__`.\n\nOther examples of decorators include `@functools.lru_cache` for memoization, `@functools.cached_property` for caching computed properties, and `@dataclasses.dataclass` for creating data classes.",
+    "sources": [
+      {
+        "title": "What are Python decorators and how do I write one?",
+        "score": 220.0,
+        "snippet": "Q: What are Python decorators and how do I write one?\n\nA: A decorator is a function that wraps another function to extend or modify its behaviour without changing its source code.\n\n```python\nimport functools\n\ndef my_decorator(func):\n    @functools.wr..."
+      },
+      {
+        "title": "What are Python's dunder (magic) methods?",
+        "score": 165.0,
+        "snippet": "Q: What are Python's dunder (magic) methods?\n\nA: Dunder methods (double underscore) let you define how objects behave with Python's built-in operations.\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x, self.y = x, y\n\n    # Strin..."
+      },
+      {
+        "title": "What is the difference between `__str__` and `__repr__` in Python?",
+        "score": 140.0,
+        "snippet": "Q: What is the difference between `__str__` and `__repr__` in Python?\n\nA: `__repr__` is for developers \u2014 it should be unambiguous and ideally `eval`-able back to the object.\n`__str__` is for end users \u2014 it should be readable and human-friendly.\n\n```p..."
+      },
+      {
+        "title": "What are Python type hints and how do I use them?",
+        "score": 155.0,
+        "snippet": "Q: What are Python type hints and how do I use them?\n\nA: Type hints (PEP 484) annotate function arguments and return values. They are not enforced at runtime but are used by IDEs, linters, and tools like `mypy`.\n\n```python\nfrom typing import Optional..."
+      },
+      {
+        "title": "How do I use Python's `functools` module?",
+        "score": 145.0,
+        "snippet": "Q: How do I use Python's `functools` module?\n\nA: ```python\nfrom functools import lru_cache, partial, reduce, cached_property, wraps\n\n# lru_cache \u2014 memoisation\n@lru_cache(maxsize=128)\ndef fib(n):\n    if n < 2:\n        return n\n    return fib(n-1) + fi..."
+      }
+    ],
+    "latency_ms": 4383.6,
+    "keywords_found": [
+      "decorator",
+      "wraps",
+      "functools",
+      "@"
+    ],
+    "pass": true
+  },
+  {
+    "id": 6,
+    "category": "Advanced",
+    "question": "What are Python generators and when should I use them?",
+    "answer": "A generator is a lazy iterator created with `yield`. It produces values one at a time instead of building the whole list in memory.\n\nGenerators are ideal for:\n*   **Large datasets**: Processing data larger than available RAM.\n*   **Infinite sequences**: Generating values on demand without storing them all.\n*   **Streaming pipelines**: Chaining operations where data is processed incrementally.\n\n**Examples of generator usage:**\n\nCreating an infinite sequence:\n```python\ndef fibonacci():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\nfib = fibonacci()\nprint([next(fib) for _ in range(8)])  # [0, 1, 1, 2, 3, 5, 8, 13]\n```\n\nGenerator expressions for lazy evaluation:\n```python\nbig_squares = (x**2 for x in range(10_000_000))\ntotal = sum(big_squares)  # streams, never builds the full list\n```\n\nReading large files efficiently:\n```python\ndef read_lines(path, skip_empty=True):\n    \"\"\"Yield lines from a file one at a time.\"\"\"\n    with open(path, encoding='utf-8') as f:\n        for line in f:\n            line = line.rstrip('\\n')\n            if skip_empty and not line:\n                continue\n            yield line\n\nfor line in read_lines('huge_log.txt'):\n    process(line)  # only one line in memory at a time\n```\n\nDelegating to a sub-generator using `yield from`:\n```python\ndef chain(*iterables):\n    for it in iterables:\n        yield from it\n```",
+    "sources": [
+      {
+        "title": "How do I use generators in Python?",
+        "score": 140.0,
+        "snippet": "Q: How do I use generators in Python?\n\nA: A generator is a lazy iterator created with `yield`. It produces values one at a time instead of building the whole list in memory.\n\n```python\ndef fibonacci():\n    a, b = 0, 1\n    while True:\n        yield a\n..."
+      },
+      {
+        "title": "What is the difference between `__str__` and `__repr__` in Python?",
+        "score": 140.0,
+        "snippet": "Q: What is the difference between `__str__` and `__repr__` in Python?\n\nA: `__repr__` is for developers \u2014 it should be unambiguous and ideally `eval`-able back to the object.\n`__str__` is for end users \u2014 it should be readable and human-friendly.\n\n```p..."
+      },
+      {
+        "title": "How do I write a generator that reads a large file efficiently?",
+        "score": 155.0,
+        "snippet": "Q: How do I write a generator that reads a large file efficiently?\n\nA: Generators let you process files larger than RAM by yielding one chunk at a time:\n\n```python\ndef read_lines(path, skip_empty=True):\n    \"\"\"Yield lines from a file one at a time.\"\"..."
+      },
+      {
+        "title": "What are Python type hints and how do I use them?",
+        "score": 155.0,
+        "snippet": "Q: What are Python type hints and how do I use them?\n\nA: Type hints (PEP 484) annotate function arguments and return values. They are not enforced at runtime but are used by IDEs, linters, and tools like `mypy`.\n\n```python\nfrom typing import Optional..."
+      },
+      {
+        "title": "What are Python's dunder (magic) methods?",
+        "score": 165.0,
+        "snippet": "Q: What are Python's dunder (magic) methods?\n\nA: Dunder methods (double underscore) let you define how objects behave with Python's built-in operations.\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x, self.y = x, y\n\n    # Strin..."
+      }
+    ],
+    "latency_ms": 4086.4,
+    "keywords_found": [
+      "yield",
+      "generator",
+      "lazy",
+      "memory"
+    ],
+    "pass": true
+  },
+  {
+    "id": 7,
+    "category": "Error Handling",
+    "question": "How do I handle multiple exceptions in Python?",
+    "answer": "To handle multiple exceptions in Python, you can specify them as a tuple in a single `except` block.\n\nFor example:\n```python\ntry:\n    result = 10 / divisor\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')\nexcept (TypeError, ValueError) as e:\n    print(f'Bad input: {e}')\nexcept Exception as e:\n    print(f'Unexpected error: {e}')\n    raise  # re-raise so it isn't silently swallowed\nelse:\n    # runs only when no exception occurred\n    print(f'Result: {result}')\nfinally:\n    # always runs \u2014 use for cleanup\n    print('Done')\n```",
+    "sources": [
+      {
+        "title": "How do I handle exceptions in Python?",
+        "score": 175.0,
+        "snippet": "Q: How do I handle exceptions in Python?\n\nA: Use `try/except/else/finally`:\n```python\ntry:\n    result = 10 / divisor\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')\nexcept (TypeError, ValueError) as e:\n    print(f'Bad input: {e}')\nexcept..."
+      },
+      {
+        "title": "How do I check if a key exists in a Python dictionary?",
+        "score": 110.0,
+        "snippet": "Q: How do I check if a key exists in a Python dictionary?\n\nA: Use the `in` operator \u2014 it checks keys by default:\n```python\nd = {'a': 1, 'b': 2}\n\nif 'a' in d:          # True\n    print(d['a'])\n\nif 'z' not in d:      # True\n    print('missing')\n```\n\nTo..."
+      },
+      {
+        "title": "How do I read a file line by line in Python?",
+        "score": 120.0,
+        "snippet": "Q: How do I read a file line by line in Python?\n\nA: The most memory-efficient way is to iterate over the file object directly:\n```python\nwith open('file.txt', 'r', encoding='utf-8') as f:\n    for line in f:\n        print(line.strip())  # strip() remo..."
+      },
+      {
+        "title": "How do I remove duplicates from a list in Python?",
+        "score": 155.0,
+        "snippet": "Q: How do I remove duplicates from a list in Python?\n\nA: Fastest way (does NOT preserve order):\n```python\nunique = list(set([1, 2, 2, 3, 3, 3]))\n# order is not guaranteed\n```\n\nPreserve insertion order (Python 3.7+):\n```python\nunique = list(dict.fromk..."
+      },
+      {
+        "title": "How do I use context managers in Python?",
+        "score": 130.0,
+        "snippet": "Q: How do I use context managers in Python?\n\nA: Context managers let you allocate and release resources precisely using `with`.\n\nBuilt-in example:\n```python\nwith open('file.txt') as f:  # file is closed automatically\n    data = f.read()\n```\n\nWrite yo..."
+      }
+    ],
+    "latency_ms": 3138.0,
+    "keywords_found": [
+      "try",
+      "except",
+      "exception",
+      "finally"
+    ],
+    "pass": true
+  },
+  {
+    "id": 8,
+    "category": "Standard Library",
+    "question": "How do I use the collections.Counter to count elements?",
+    "answer": "You can use `collections.Counter` to count occurrences of hashable elements in an iterable. It is recommended for counting all elements at once as it is O(n) and provides useful methods.\n\nTo use it, import `Counter` from the `collections` module:\n\n```python\nfrom collections import Counter\n```\n\n**Counting elements in a list:**\n\n```python\nfruits = ['apple', 'banana', 'apple', 'cherry', 'apple']\ncounts = Counter(fruits)\n# Counter({'apple': 3, 'banana': 1, 'cherry': 1})\n```\n\nYou can then access the count for a specific element:\n\n```python\ncounts['apple']          # 3\n```\n\nThe `most_common()` method can be used to get the N most common elements and their counts:\n\n```python\ncounts.most_common(2)    # [('apple', 3), ('banana', 1)]\n```\n\n**Counting characters in a string:**\n\n```python\nCounter('mississippi')\n# Counter({'s': 4, 'i': 4, 'p': 2, 'm': 1})\n```",
+    "sources": [
+      {
+        "title": "How do I count occurrences of elements in a Python list?",
+        "score": 125.0,
+        "snippet": "Q: How do I count occurrences of elements in a Python list?\n\nA: **`list.count()` \u2014 single element:**\n```python\nfruits = ['apple', 'banana', 'apple', 'cherry', 'apple']\nfruits.count('apple')  # 3\n```\n\n**`collections.Counter` \u2014 all elements at once (re..."
+      },
+      {
+        "title": "How do I use Python's `collections` module?",
+        "score": 145.0,
+        "snippet": "Q: How do I use Python's `collections` module?\n\nA: The `collections` module has powerful specialised container types:\n\n```python\nfrom collections import Counter, defaultdict, deque, namedtuple, OrderedDict\n\n# Counter \u2014 count hashable items\ncounts = C..."
+      },
+      {
+        "title": "How does Python's garbage collection and memory management work?",
+        "score": 190.0,
+        "snippet": "Q: How does Python's garbage collection and memory management work?\n\nA: Python uses **reference counting** as the primary mechanism: each object tracks how many references point to it; when the count reaches zero, the object is immediately deallocate..."
+      },
+      {
+        "title": "How do I use enumerate in Python?",
+        "score": 125.0,
+        "snippet": "Q: How do I use enumerate in Python?\n\nA: `enumerate` adds an automatic counter to any iterable, returning `(index, value)` pairs:\n\n```python\nfruits = ['apple', 'banana', 'cherry']\n\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n# 0 apple\n# 1 ..."
+      },
+      {
+        "title": "What is the difference between a list and a tuple in Python?",
+        "score": 170.0,
+        "snippet": "Q: What is the difference between a list and a tuple in Python?\n\nA: | Feature      | List `[]`         | Tuple `()`          |\n|--------------|-------------------|---------------------|\n| Mutability   | Mutable           | Immutable           |\n| Syn..."
+      }
+    ],
+    "latency_ms": 3603.9,
+    "keywords_found": [
+      "Counter",
+      "collections",
+      "count",
+      "most_common"
+    ],
+    "pass": true
+  },
+  {
+    "id": 9,
+    "category": "Async",
+    "question": "How does async/await work in Python?",
+    "answer": "Python 3.5+ supports `async/await` via the `asyncio` library.\n\nKey rules for `async/await`:\n-   `async def` defines a coroutine. Calling an `async def` function returns a coroutine object, not its result directly.\n-   `await` is used to suspend the execution of the current coroutine until the awaited coroutine completes.\n-   `asyncio.gather` can be used to run multiple coroutines concurrently.\n-   For asynchronous iterables and context managers, `async for` and `async with` should be used.\n-   It's important to avoid calling blocking I/O operations (like `requests` or `open`) inside async functions; instead, use async-compatible libraries.\n\nFor fully async I/O, `asyncio` is generally preferred over threads due to lower overhead and no GIL issues.\n\nHere's an example of how to use `async/await`:\n\n```python\nimport asyncio\nimport aiohttp\n\nasync def fetch(url: str) -> str:\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as resp:\n            return await resp.text()\n\nasync def main():\n    # Run concurrently\n    urls = ['https://example.com', 'https://python.org']\n    results = await asyncio.gather(*[fetch(u) for u in urls])\n    for r in results:\n        print(len(r))\n\nasyncio.run(main())\n```",
+    "sources": [
+      {
+        "title": "How do I write async functions in Python?",
+        "score": 200.0,
+        "snippet": "Q: How do I write async functions in Python?\n\nA: Python 3.5+ supports async/await via `asyncio`:\n\n```python\nimport asyncio\nimport aiohttp\n\nasync def fetch(url: str) -> str:\n    async with aiohttp.ClientSession() as session:\n        async with session..."
+      },
+      {
+        "title": "How does Python's Global Interpreter Lock (GIL) affect multi-threading?",
+        "score": 210.0,
+        "snippet": "Q: How does Python's Global Interpreter Lock (GIL) affect multi-threading?\n\nA: The GIL is a mutex that allows only one thread to execute Python bytecode at a time, even on multi-core machines.\n\n**Implications:**\n- CPU-bound code (number crunching, lo..."
+      },
+      {
+        "title": "How do Python's `map` and `filter` functions work?",
+        "score": 115.0,
+        "snippet": "Q: How do Python's `map` and `filter` functions work?\n\nA: `map(func, iterable)` applies `func` to every element.\n`filter(func, iterable)` keeps elements where `func` returns truthy.\n\n```python\nnums = [1, 2, 3, 4, 5]\n\nsquares = list(map(lambda x: x**2..."
+      },
+      {
+        "title": "How do I use Python's `multiprocessing` module for parallel CPU-bound tasks?",
+        "score": 185.0,
+        "snippet": "Q: How do I use Python's `multiprocessing` module for parallel CPU-bound tasks?\n\nA: ```python\nfrom multiprocessing import Pool, cpu_count\nimport os\n\ndef heavy_task(n):\n    \"\"\"CPU-bound: sum of squares up to n.\"\"\"\n    return sum(i * i for i in range(n..."
+      },
+      {
+        "title": "What is the difference between `is` and `==` in Python?",
+        "score": 250.0,
+        "snippet": "Q: What is the difference between `is` and `==` in Python?\n\nA: `==` tests **value equality** \u2014 whether two objects contain the same data.\n`is` tests **identity** \u2014 whether two variables point to the exact same object in memory.\n\n```python\na = [1, 2, ..."
+      }
+    ],
+    "latency_ms": 3309.2,
+    "keywords_found": [
+      "async",
+      "await",
+      "asyncio",
+      "coroutine"
+    ],
+    "pass": true
+  },
+  {
+    "id": 10,
+    "category": "Edge Case",
+    "question": "How can I check if a variable is None in Python?",
+    "answer": "To check if a variable is `None` in Python, use the `is` operator.\n\nThe `is` operator tests for identity, meaning it checks if two variables point to the exact same object in memory. `None` is a singleton, so `is` is the correct operator to use for this check.\n\n```python\nif x is None:    # correct\n```\n\nUsing `== None` also works but may trigger a lint warning.",
+    "sources": [
+      {
+        "title": "How do I check if a key exists in a Python dictionary?",
+        "score": 110.0,
+        "snippet": "Q: How do I check if a key exists in a Python dictionary?\n\nA: Use the `in` operator \u2014 it checks keys by default:\n```python\nd = {'a': 1, 'b': 2}\n\nif 'a' in d:          # True\n    print(d['a'])\n\nif 'z' not in d:      # True\n    print('missing')\n```\n\nTo..."
+      },
+      {
+        "title": "What is the difference between `is` and `==` in Python?",
+        "score": 250.0,
+        "snippet": "Q: What is the difference between `is` and `==` in Python?\n\nA: `==` tests **value equality** \u2014 whether two objects contain the same data.\n`is` tests **identity** \u2014 whether two variables point to the exact same object in memory.\n\n```python\na = [1, 2, ..."
+      },
+      {
+        "title": "How do I handle exceptions in Python?",
+        "score": 175.0,
+        "snippet": "Q: How do I handle exceptions in Python?\n\nA: Use `try/except/else/finally`:\n```python\ntry:\n    result = 10 / divisor\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')\nexcept (TypeError, ValueError) as e:\n    print(f'Bad input: {e}')\nexcept..."
+      },
+      {
+        "title": "How do I handle environment variables in Python?",
+        "score": 145.0,
+        "snippet": "Q: How do I handle environment variables in Python?\n\nA: ```python\nimport os\n\n# Read (returns None if missing)\napi_key = os.environ.get('API_KEY')\n\n# Read with default\ndebug = os.environ.get('DEBUG', 'false').lower() == 'true'\n\n# Read \u2014 raises KeyErro..."
+      },
+      {
+        "title": "What are Python type hints and how do I use them?",
+        "score": 155.0,
+        "snippet": "Q: What are Python type hints and how do I use them?\n\nA: Type hints (PEP 484) annotate function arguments and return values. They are not enforced at runtime but are used by IDEs, linters, and tools like `mypy`.\n\n```python\nfrom typing import Optional..."
+      }
+    ],
+    "latency_ms": 2438.6,
+    "keywords_found": [
+      "None",
+      "is None"
+    ],
+    "pass": true
+  }
+]

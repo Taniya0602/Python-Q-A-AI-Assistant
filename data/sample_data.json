@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "question": "How do I reverse a list in Python?",
+    "answer": "There are three main ways to reverse a list in Python:\n\n1. **Slicing** (creates a new list):\n```python\nmy_list = [1, 2, 3, 4, 5]\nreversed_list = my_list[::-1]\nprint(reversed_list)  # [5, 4, 3, 2, 1]\n```\n\n2. **`list.reverse()`** (in-place, returns None):\n```python\nmy_list.reverse()\nprint(my_list)  # [5, 4, 3, 2, 1]\n```\n\n3. **`reversed()` built-in** (returns an iterator):\n```python\nfor item in reversed(my_list):\n    print(item)\n```\nUse slicing when you want a new list; use `.reverse()` when you want to modify in place; use `reversed()` when iterating.",
+    "score": 150
+  },
+  {
+    "id": 2,
+    "question": "How do I merge two dictionaries in Python?",
+    "answer": "Python 3.9+ supports the merge operator `|`:\n```python\nd1 = {'a': 1, 'b': 2}\nd2 = {'b': 3, 'c': 4}\nmerged = d1 | d2  # {'a': 1, 'b': 3, 'c': 4}\n```\n\nFor Python 3.5–3.8 use `**` unpacking:\n```python\nmerged = {**d1, **d2}\n```\n\nFor Python 2/3 compatibility use `dict.update()`:\n```python\nresult = d1.copy()\nresult.update(d2)\n```\nIn all cases, later keys win when there are conflicts.",
+    "score": 200
+  },
+  {
+    "id": 3,
+    "question": "What is a list comprehension in Python and how do I use it?",
+    "answer": "A list comprehension creates a new list by applying an expression to each item in an iterable, optionally filtering with a condition.\n\nSyntax: `[expression for item in iterable if condition]`\n\nExamples:\n```python\n# Squares of even numbers\nsquares = [x**2 for x in range(10) if x % 2 == 0]\n# [0, 4, 16, 36, 64]\n\n# Flatten a 2-D list\nmatrix = [[1, 2], [3, 4], [5, 6]]\nflat = [num for row in matrix for num in row]\n# [1, 2, 3, 4, 5, 6]\n\n# Conditional expression\nlabels = ['even' if x % 2 == 0 else 'odd' for x in range(5)]\n# ['even', 'odd', 'even', 'odd', 'even']\n```\nList comprehensions are faster than equivalent `for` loops and are considered more Pythonic.",
+    "score": 180
+  },
+  {
+    "id": 4,
+    "question": "How do I read a file line by line in Python?",
+    "answer": "The most memory-efficient way is to iterate over the file object directly:\n```python\nwith open('file.txt', 'r', encoding='utf-8') as f:\n    for line in f:\n        print(line.strip())  # strip() removes the trailing newline\n```\n\nTo get all lines as a list:\n```python\nwith open('file.txt') as f:\n    lines = f.readlines()  # list of strings with newlines\n    # or\n    lines = f.read().splitlines()  # list without newlines\n```\n\nAlways use a `with` block so the file is closed automatically even if an exception occurs.",
+    "score": 120
+  },
+  {
+    "id": 5,
+    "question": "What is the difference between `is` and `==` in Python?",
+    "answer": "`==` tests **value equality** — whether two objects contain the same data.\n`is` tests **identity** — whether two variables point to the exact same object in memory.\n\n```python\na = [1, 2, 3]\nb = [1, 2, 3]\nprint(a == b)   # True  (same values)\nprint(a is b)   # False (different objects)\n\nc = a\nprint(c is a)   # True  (same object)\n```\n\nUse `is` only when checking against singletons:\n```python\nif x is None:    # correct\nif x is True:    # correct\nif x == None:    # works but triggers lint warning\n```\nNever use `is` to compare integers, strings, or custom objects for equality.",
+    "score": 250
+  },
+  {
+    "id": 6,
+    "question": "How do I handle exceptions in Python?",
+    "answer": "Use `try/except/else/finally`:\n```python\ntry:\n    result = 10 / divisor\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')\nexcept (TypeError, ValueError) as e:\n    print(f'Bad input: {e}')\nexcept Exception as e:\n    print(f'Unexpected error: {e}')\n    raise  # re-raise so it isn't silently swallowed\nelse:\n    # runs only when no exception occurred\n    print(f'Result: {result}')\nfinally:\n    # always runs — use for cleanup\n    print('Done')\n```\n\nBest practices:\n- Catch specific exceptions, not bare `except:`\n- Never silence exceptions with empty `except` blocks\n- Use `finally` for cleanup (or a `with` statement instead)",
+    "score": 175
+  },
+  {
+    "id": 7,
+    "question": "How do I sort a list of dictionaries by a key in Python?",
+    "answer": "Use the `key` argument of `sorted()` or `list.sort()` with a lambda or `operator.itemgetter`:\n\n```python\npeople = [\n    {'name': 'Alice', 'age': 30},\n    {'name': 'Bob',   'age': 25},\n    {'name': 'Carol', 'age': 35},\n]\n\n# Sort by age ascending\nby_age = sorted(people, key=lambda p: p['age'])\n\n# Sort by age descending\nby_age_desc = sorted(people, key=lambda p: p['age'], reverse=True)\n\n# Faster for large lists\nfrom operator import itemgetter\nby_name = sorted(people, key=itemgetter('name'))\n\n# Sort in place\npeople.sort(key=lambda p: p['age'])\n```",
+    "score": 160
+  },
+  {
+    "id": 8,
+    "question": "What are Python decorators and how do I write one?",
+    "answer": "A decorator is a function that wraps another function to extend or modify its behaviour without changing its source code.\n\n```python\nimport functools\n\ndef my_decorator(func):\n    @functools.wraps(func)  # preserves func's metadata\n    def wrapper(*args, **kwargs):\n        print('Before call')\n        result = func(*args, **kwargs)\n        print('After call')\n        return result\n    return wrapper\n\n@my_decorator\ndef say_hello(name):\n    print(f'Hello, {name}!')\n\nsay_hello('Alice')\n# Before call\n# Hello, Alice!\n# After call\n```\n\nA decorator with arguments needs an extra layer:\n```python\ndef repeat(n):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            for _ in range(n):\n                func(*args, **kwargs)\n        return wrapper\n    return decorator\n\n@repeat(3)\ndef greet():\n    print('Hi!')\n```\nAlways use `@functools.wraps` to preserve `__name__`, `__doc__`, etc.",
+    "score": 220
+  },
+  {
+    "id": 9,
+    "question": "How do I use generators in Python?",
+    "answer": "A generator is a lazy iterator created with `yield`. It produces values one at a time instead of building the whole list in memory.\n\n```python\ndef fibonacci():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\nfib = fibonacci()\nprint([next(fib) for _ in range(8)])  # [0, 1, 1, 2, 3, 5, 8, 13]\n```\n\nGenerator expressions (like list comprehensions but lazy):\n```python\nbig_squares = (x**2 for x in range(10_000_000))\ntotal = sum(big_squares)  # streams, never builds the full list\n```\n\nUse `yield from` to delegate to a sub-generator:\n```python\ndef chain(*iterables):\n    for it in iterables:\n        yield from it\n```\nGenerators are ideal for large datasets, infinite sequences, and streaming pipelines.",
+    "score": 140
+  },
+  {
+    "id": 10,
+    "question": "How do I use context managers in Python?",
+    "answer": "Context managers let you allocate and release resources precisely using `with`.\n\nBuilt-in example:\n```python\nwith open('file.txt') as f:  # file is closed automatically\n    data = f.read()\n```\n\nWrite your own with a class:\n```python\nclass Timer:\n    import time\n    def __enter__(self):\n        self.start = time.perf_counter()\n        return self\n    def __exit__(self, *exc_info):\n        self.elapsed = time.perf_counter() - self.start\n        return False  # don't suppress exceptions\n\nwith Timer() as t:\n    expensive_operation()\nprint(f'Took {t.elapsed:.2f}s')\n```\n\nSimpler: use `@contextlib.contextmanager`:\n```python\nfrom contextlib import contextmanager\n\n@contextmanager\ndef managed_resource():\n    resource = acquire()\n    try:\n        yield resource\n    finally:\n        release(resource)\n```",
+    "score": 130
+  },
+  {
+    "id": 11,
+    "question": "What is the difference between append and extend in Python lists?",
+    "answer": "`append` adds a single element to the end of a list.\n`extend` adds every element from an iterable to the end of a list.\n\n```python\na = [1, 2, 3]\na.append([4, 5])   # [1, 2, 3, [4, 5]]  — nested list\n\nb = [1, 2, 3]\nb.extend([4, 5])   # [1, 2, 3, 4, 5]   — flattened\n\n# extend equivalent using +=\nb += [6, 7]        # [1, 2, 3, 4, 5, 6, 7]\n```\n\nUse `append` when adding one item; use `extend` when adding multiple items from another iterable.",
+    "score": 100
+  },
+  {
+    "id": 12,
+    "question": "How do I copy a list in Python to avoid reference issues?",
+    "answer": "Assigning a list does NOT copy it — both variables point to the same object:\n```python\na = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)  # [1, 2, 3, 4]  — a is also changed!\n```\n\nShallow copy (nested objects are still shared):\n```python\nb = a.copy()     # list method\nb = a[:]         # slicing\nb = list(a)      # constructor\nimport copy; b = copy.copy(a)\n```\n\nDeep copy (all nested objects are also copied):\n```python\nimport copy\nb = copy.deepcopy(a)\n```\nUse shallow copy for flat lists. Use `deepcopy` only when the list contains mutable nested objects you also need to isolate.",
+    "score": 145
+  },
+  {
+    "id": 13,
+    "question": "How do I format strings in Python?",
+    "answer": "Python 3 offers three modern approaches:\n\n**f-strings** (Python 3.6+, recommended):\n```python\nname = 'Alice'\nage = 30\nprint(f'{name} is {age} years old')       # Alice is 30 years old\nprint(f'{3.14159:.2f}')                   # 3.14\nprint(f'{1_000_000:,}')                   # 1,000,000\nprint(f'{name!r}')                        # 'Alice'\n```\n\n**`str.format()`**:\n```python\nprint('{} is {} years old'.format(name, age))\nprint('{name} is {age}'.format(name=name, age=age))\n```\n\n**`%` operator** (legacy, avoid in new code):\n```python\nprint('%s is %d years old' % (name, age))\n```\n\nf-strings are fastest, most readable, and support arbitrary expressions inside `{}`.",
+    "score": 190
+  },
+  {
+    "id": 14,
+    "question": "How do I check if a key exists in a Python dictionary?",
+    "answer": "Use the `in` operator — it checks keys by default:\n```python\nd = {'a': 1, 'b': 2}\n\nif 'a' in d:          # True\n    print(d['a'])\n\nif 'z' not in d:      # True\n    print('missing')\n```\n\nTo safely get a value with a default, use `dict.get()`:\n```python\nvalue = d.get('z', 0)   # returns 0 if 'z' is absent\n```\n\nDo **not** use `d.has_key('a')` — it was removed in Python 3.\n\nFor multiple key lookups, `collections.defaultdict` or `setdefault` may be more ergonomic:\n```python\nfrom collections import defaultdict\ncounts = defaultdict(int)\ncounts['missing'] += 1   # no KeyError\n```",
+    "score": 110
+  },
+  {
+    "id": 15,
+    "question": "What are args and kwargs in Python functions?",
+    "answer": "`*args` collects positional arguments into a tuple; `**kwargs` collects keyword arguments into a dict.\n\n```python\ndef demo(*args, **kwargs):\n    print(args)    # tuple\n    print(kwargs)  # dict\n\ndemo(1, 2, 3, name='Alice', role='dev')\n# (1, 2, 3)\n# {'name': 'Alice', 'role': 'dev'}\n```\n\nUseful for forwarding arguments:\n```python\ndef wrapper(*args, **kwargs):\n    print('Before')\n    original_func(*args, **kwargs)\n    print('After')\n```\n\nUnpack when calling:\n```python\nnums = [1, 2, 3]\nprint(max(*nums))          # same as max(1, 2, 3)\n\nopts = {'sep': ', ', 'end': '!'}\nprint('a', 'b', **opts)    # a, b!\n```",
+    "score": 165
+  },
+  {
+    "id": 16,
+    "question": "How do I use lambda functions in Python?",
+    "answer": "A lambda creates a small anonymous function in a single expression:\n```python\nsquare = lambda x: x ** 2\nprint(square(5))  # 25\n\nadd = lambda x, y: x + y\nprint(add(3, 4))  # 7\n```\n\nCommon uses — passing short functions as arguments:\n```python\nnums = [3, 1, 4, 1, 5, 9]\nsorted_nums = sorted(nums, key=lambda x: -x)   # descending\n\npairs = [(1, 'b'), (2, 'a'), (3, 'c')]\nsorted_pairs = sorted(pairs, key=lambda p: p[1])\n```\n\nWhen NOT to use lambda:\n```python\n# Bad — harder to read and can't be reused\nfunc = lambda x: x * 2  # use def instead\n\n# Good — short, used once inline\nresult = map(lambda x: x * 2, range(5))\n```\nPrefer named functions (`def`) when the logic is complex or the function is reused.",
+    "score": 135
+  },
+  {
+    "id": 17,
+    "question": "How do I remove duplicates from a list in Python?",
+    "answer": "Fastest way (does NOT preserve order):\n```python\nunique = list(set([1, 2, 2, 3, 3, 3]))\n# order is not guaranteed\n```\n\nPreserve insertion order (Python 3.7+):\n```python\nunique = list(dict.fromkeys([1, 2, 2, 3, 3, 3]))\n# [1, 2, 3]\n```\n\nWith a list comprehension (works for unhashable items):\n```python\nseen = set()\nunique = [x for x in items if not (x in seen or seen.add(x))]\n```\n\nFor objects, override `__eq__` and `__hash__`, or use `key` to define equality:\n```python\n# deduplicate by field\npeople = [{'id': 1, 'name': 'Alice'}, {'id': 1, 'name': 'Alice duplicate'}]\nunique = list({p['id']: p for p in people}.values())\n```",
+    "score": 155
+  },
+  {
+    "id": 18,
+    "question": "How do I use enumerate in Python?",
+    "answer": "`enumerate` adds an automatic counter to any iterable, returning `(index, value)` pairs:\n\n```python\nfruits = ['apple', 'banana', 'cherry']\n\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n# 0 apple\n# 1 banana\n# 2 cherry\n\n# Start from a different index\nfor i, fruit in enumerate(fruits, start=1):\n    print(i, fruit)\n# 1 apple  2 banana  3 cherry\n```\n\nUse it instead of manual indexing:\n```python\n# Bad\nfor i in range(len(fruits)):\n    print(i, fruits[i])\n\n# Good\nfor i, fruit in enumerate(fruits):\n    print(i, fruit)\n```\n\nConvert to a list of tuples: `list(enumerate(fruits))` → `[(0, 'apple'), ...]`",
+    "score": 125
+  },
+  {
+    "id": 19,
+    "question": "What is the difference between a list and a tuple in Python?",
+    "answer": "| Feature      | List `[]`         | Tuple `()`          |\n|--------------|-------------------|---------------------|\n| Mutability   | Mutable           | Immutable           |\n| Syntax       | `[1, 2, 3]`       | `(1, 2, 3)`         |\n| Performance  | Slightly slower   | Slightly faster     |\n| Hashable     | No                | Yes (if elements are)|\n| Use case     | Collections that change | Fixed records |\n\n```python\n# List — can be modified\nmy_list = [1, 2, 3]\nmy_list[0] = 99       # OK\nmy_list.append(4)     # OK\n\n# Tuple — immutable\npoint = (10, 20)\npoint[0] = 99         # TypeError!\n\n# Tuple as dict key (hashable)\nlocation = {(0, 0): 'origin'}\n```\n\nChoose tuples for data that should not change (coordinates, RGB values, DB rows); use lists for dynamic collections.",
+    "score": 170
+  },
+  {
+    "id": 20,
+    "question": "How do I convert a string to a list and back in Python?",
+    "answer": "**String → list of characters:**\n```python\nchars = list('hello')      # ['h', 'e', 'l', 'l', 'o']\n```\n\n**String → list of words (split):**\n```python\nwords = 'hello world'.split()       # ['hello', 'world']\nparts = 'a,b,c'.split(',')          # ['a', 'b', 'c']\nlines = 'line1\\nline2'.splitlines() # ['line1', 'line2']\n```\n\n**List → string (join):**\n```python\n' '.join(['hello', 'world'])  # 'hello world'\n','.join(['a', 'b', 'c'])     # 'a,b,c'\n''.join(['h','e','l','l','o']) # 'hello'\n```\n\nNote: `join` requires all elements to be strings. Convert first if needed:\n```python\n','.join(str(x) for x in [1, 2, 3])  # '1,2,3'\n```",
+    "score": 100
+  },
+  {
+    "id": 21,
+    "question": "How do I use zip in Python?",
+    "answer": "`zip` pairs elements from multiple iterables together:\n\n```python\nnames  = ['Alice', 'Bob', 'Carol']\nscores = [95, 87, 92]\n\nfor name, score in zip(names, scores):\n    print(f'{name}: {score}')\n# Alice: 95  Bob: 87  Carol: 92\n\n# Create a dict\nresult = dict(zip(names, scores))\n# {'Alice': 95, 'Bob': 87, 'Carol': 92}\n```\n\n`zip` stops at the shortest iterable. Use `itertools.zip_longest` to continue with a fill value:\n```python\nfrom itertools import zip_longest\nfor a, b in zip_longest([1, 2, 3], [4, 5], fillvalue=0):\n    print(a, b)  # 1 4 / 2 5 / 3 0\n```\n\nUnzip (transpose) with the `*` operator:\n```python\npairs = [(1, 'a'), (2, 'b'), (3, 'c')]\nnums, letters = zip(*pairs)\n# nums=(1,2,3)  letters=('a','b','c')\n```",
+    "score": 140
+  },
+  {
+    "id": 22,
+    "question": "How do I write a class in Python with inheritance?",
+    "answer": "```python\nclass Animal:\n    def __init__(self, name: str):\n        self.name = name\n\n    def speak(self) -> str:\n        raise NotImplementedError\n\n    def __repr__(self) -> str:\n        return f'{type(self).__name__}({self.name!r})'\n\n\nclass Dog(Animal):\n    def speak(self) -> str:\n        return f'{self.name} says Woof!'\n\n\nclass Cat(Animal):\n    def speak(self) -> str:\n        return f'{self.name} says Meow!'\n\n\ndog = Dog('Rex')\nprint(dog.speak())   # Rex says Woof!\nprint(repr(dog))     # Dog('Rex')\n\nprint(isinstance(dog, Animal))  # True\nprint(issubclass(Dog, Animal))  # True\n```\n\nUse `super()` to call the parent constructor:\n```python\nclass Puppy(Dog):\n    def __init__(self, name, age):\n        super().__init__(name)\n        self.age = age\n```",
+    "score": 180
+  },
+  {
+    "id": 23,
+    "question": "How do Python's `map` and `filter` functions work?",
+    "answer": "`map(func, iterable)` applies `func` to every element.\n`filter(func, iterable)` keeps elements where `func` returns truthy.\n\n```python\nnums = [1, 2, 3, 4, 5]\n\nsquares = list(map(lambda x: x**2, nums))\n# [1, 4, 9, 16, 25]\n\nevens = list(filter(lambda x: x % 2 == 0, nums))\n# [2, 4]\n```\n\nBoth return lazy iterators — wrap in `list()` to materialise.\n\nIn modern Python, list comprehensions are usually clearer:\n```python\nsquares = [x**2 for x in nums]\nevens   = [x for x in nums if x % 2 == 0]\n```\n\n`map` and `filter` shine when you already have a named function:\n```python\nfrom math import sqrt\nroots = list(map(sqrt, nums))\n```",
+    "score": 115
+  },
+  {
+    "id": 24,
+    "question": "How do I work with JSON in Python?",
+    "answer": "Use the built-in `json` module:\n\n```python\nimport json\n\n# Dict → JSON string\ndata = {'name': 'Alice', 'scores': [95, 87, 92]}\njson_str = json.dumps(data)                     # compact\njson_pretty = json.dumps(data, indent=2)        # pretty-printed\n\n# JSON string → dict\nparsed = json.loads(json_str)\n\n# Write to file\nwith open('data.json', 'w') as f:\n    json.dump(data, f, indent=2)\n\n# Read from file\nwith open('data.json') as f:\n    data = json.load(f)\n```\n\nHandling non-serialisable types:\n```python\nimport datetime\n\ndef default_encoder(obj):\n    if isinstance(obj, datetime.datetime):\n        return obj.isoformat()\n    raise TypeError(f'{type(obj)} not serialisable')\n\njson.dumps({'ts': datetime.datetime.now()}, default=default_encoder)\n```",
+    "score": 135
+  },
+  {
+    "id": 25,
+    "question": "How do I use Python's `collections` module?",
+    "answer": "The `collections` module has powerful specialised container types:\n\n```python\nfrom collections import Counter, defaultdict, deque, namedtuple, OrderedDict\n\n# Counter — count hashable items\ncounts = Counter('aababc')\n# Counter({'a': 3, 'b': 2, 'c': 1})\ncounts.most_common(2)  # [('a', 3), ('b', 2)]\n\n# defaultdict — no KeyError on missing keys\nword_lists = defaultdict(list)\nword_lists['fruits'].append('apple')  # no KeyError\n\n# deque — fast O(1) append/pop on both ends\nbuffer = deque(maxlen=3)\nfor i in range(5):\n    buffer.append(i)\n# deque([2, 3, 4], maxlen=3)\n\n# namedtuple — tuple with named fields\nPoint = namedtuple('Point', ['x', 'y'])\np = Point(3, 4)\nprint(p.x, p.y)  # 3 4\n```",
+    "score": 145
+  },
+  {
+    "id": 26,
+    "question": "What are Python type hints and how do I use them?",
+    "answer": "Type hints (PEP 484) annotate function arguments and return values. They are not enforced at runtime but are used by IDEs, linters, and tools like `mypy`.\n\n```python\nfrom typing import Optional, Union, List, Dict, Tuple\n\ndef greet(name: str) -> str:\n    return f'Hello, {name}'\n\ndef process(items: List[int], limit: Optional[int] = None) -> Dict[str, int]:\n    ...\n\n# Python 3.10+ — use | for Union\ndef f(x: int | str) -> None:\n    ...\n\n# Python 3.9+ — built-in generics\ndef g(items: list[int]) -> dict[str, int]:\n    ...\n```\n\nDataclasses integrate type hints cleanly:\n```python\nfrom dataclasses import dataclass\n\n@dataclass\nclass User:\n    name: str\n    age: int\n    email: str = ''\n\nuser = User('Alice', 30)\n```\n\nRun `mypy script.py` or use a type-aware IDE to catch errors at development time.",
+    "score": 155
+  },
+  {
+    "id": 27,
+    "question": "How do I write async functions in Python?",
+    "answer": "Python 3.5+ supports async/await via `asyncio`:\n\n```python\nimport asyncio\nimport aiohttp\n\nasync def fetch(url: str) -> str:\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as resp:\n            return await resp.text()\n\nasync def main():\n    # Run concurrently\n    urls = ['https://example.com', 'https://python.org']\n    results = await asyncio.gather(*[fetch(u) for u in urls])\n    for r in results:\n        print(len(r))\n\nasyncio.run(main())\n```\n\nKey rules:\n- `async def` defines a coroutine — calling it returns a coroutine object, not a result\n- `await` suspends until the awaited coroutine completes\n- `asyncio.gather` runs coroutines concurrently\n- Use `async for` / `async with` for async iterables and context managers\n- Don't call blocking I/O (e.g. `requests`, `open`) inside async functions — use async libraries instead",
+    "score": 200
+  },
+  {
+    "id": 28,
+    "question": "How do I use Python's pathlib for file system operations?",
+    "answer": "`pathlib.Path` is the modern, object-oriented way to work with file paths (Python 3.4+):\n\n```python\nfrom pathlib import Path\n\np = Path('data/results.txt')\n\n# Path components\nprint(p.parent)   # data\nprint(p.stem)     # results\nprint(p.suffix)   # .txt\nprint(p.name)     # results.txt\n\n# Check existence\np.exists()        # False/True\np.is_file()       # True if regular file\np.is_dir()        # True if directory\n\n# Create / read / write\np.parent.mkdir(parents=True, exist_ok=True)\np.write_text('hello')          # overwrites\np.write_bytes(b'\\x00\\x01')\ncontent = p.read_text()\n\n# Glob\nfor f in Path('.').glob('**/*.py'):\n    print(f)\n\n# Join paths with /\nconfig = Path.home() / '.config' / 'app' / 'settings.json'\n```\n\nPrefer `pathlib` over `os.path` in new code — it's more readable and cross-platform.",
+    "score": 160
+  },
+  {
+    "id": 29,
+    "question": "How does Python's Global Interpreter Lock (GIL) affect multi-threading?",
+    "answer": "The GIL is a mutex that allows only one thread to execute Python bytecode at a time, even on multi-core machines.\n\n**Implications:**\n- CPU-bound code (number crunching, loops) does NOT benefit from threads — use `multiprocessing` instead\n- I/O-bound code (network, disk, sleep) benefits from threads because the GIL is released during I/O\n\n```python\nfrom concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor\n\n# Good: I/O-bound work — use threads\nwith ThreadPoolExecutor(max_workers=10) as executor:\n    results = list(executor.map(download_file, urls))\n\n# Good: CPU-bound work — use processes\nwith ProcessPoolExecutor() as executor:\n    results = list(executor.map(heavy_computation, data))\n```\n\nFor fully async I/O, `asyncio` is better than threads (lower overhead, no GIL issue).\n\nNote: Python 3.13 introduces a per-interpreter GIL (experimental), but the standard GIL remains the default.",
+    "score": 210
+  },
+  {
+    "id": 30,
+    "question": "How do I use Python's `itertools` module?",
+    "answer": "```python\nfrom itertools import chain, islice, product, combinations, permutations, groupby, cycle\n\n# chain — flatten iterables\nlist(chain([1, 2], [3, 4], [5]))  # [1, 2, 3, 4, 5]\n\n# islice — lazy slicing\nlist(islice(range(100), 5, 10))  # [5, 6, 7, 8, 9]\n\n# product — Cartesian product\nlist(product([1, 2], ['a', 'b']))  # [(1,'a'),(1,'b'),(2,'a'),(2,'b')]\n\n# combinations / permutations\nlist(combinations([1,2,3], 2))   # [(1,2),(1,3),(2,3)]\nlist(permutations([1,2,3], 2))   # [(1,2),(1,3),(2,1),...]\n\n# groupby — group consecutive elements\ndata = [('a',1),('a',2),('b',3),('b',4)]\nfor key, group in groupby(data, key=lambda x: x[0]):\n    print(key, list(group))\n# a [(a,1),(a,2)]   b [(b,3),(b,4)]\n\n# cycle — infinite cycling\ncolors = cycle(['red','green','blue'])\n```\nAll `itertools` functions return lazy iterators — very memory-efficient.",
+    "score": 130
+  },
+  {
+    "id": 31,
+    "question": "How do I profile Python code for performance?",
+    "answer": "**Quick timing with `timeit`:**\n```python\nimport timeit\ntime = timeit.timeit('\"hello\".upper()', number=1_000_000)\nprint(f'{time:.3f}s')\n\n# In Jupyter/IPython\n%timeit [x**2 for x in range(1000)]\n```\n\n**cProfile for function-level profiling:**\n```python\nimport cProfile\ncProfile.run('my_function()', sort='cumulative')\n```\n\n**Line-level profiling with `line_profiler`:**\n```bash\npip install line_profiler\n@profile  # decorator added by line_profiler\ndef slow_function():\n    ...\nkernprof -l -v script.py\n```\n\n**Memory profiling:**\n```bash\npip install memory_profiler\nmprof run script.py && mprof plot\n```\n\nOptimisation priorities:\n1. Profile first — never guess\n2. Algorithmic improvements (O(n²) → O(n log n))\n3. Built-in functions and data structures\n4. NumPy vectorisation for numeric code\n5. Cython/Numba/C extensions as last resort",
+    "score": 170
+  },
+  {
+    "id": 32,
+    "question": "How do I use Python dataclasses?",
+    "answer": "`@dataclass` (Python 3.7+) auto-generates `__init__`, `__repr__`, `__eq__`, and optionally more:\n\n```python\nfrom dataclasses import dataclass, field\nfrom typing import List\n\n@dataclass\nclass Student:\n    name: str\n    grade: int\n    scores: List[int] = field(default_factory=list)  # mutable default\n    _internal: str = field(default='', repr=False, compare=False)\n\n    @property\n    def average(self) -> float:\n        return sum(self.scores) / len(self.scores) if self.scores else 0.0\n\ns = Student('Alice', 10, [95, 87, 92])\nprint(s)             # Student(name='Alice', grade=10, scores=[95, 87, 92])\nprint(s.average)     # 91.33...\n\n# Immutable dataclass\n@dataclass(frozen=True)\nclass Point:\n    x: float\n    y: float\n\n# Ordered comparison\n@dataclass(order=True)\nclass Version:\n    major: int\n    minor: int\n    patch: int\n```\nNever use a mutable default directly: always use `field(default_factory=list)` for lists/dicts.",
+    "score": 150
+  },
+  {
+    "id": 33,
+    "question": "How do I handle environment variables in Python?",
+    "answer": "```python\nimport os\n\n# Read (returns None if missing)\napi_key = os.environ.get('API_KEY')\n\n# Read with default\ndebug = os.environ.get('DEBUG', 'false').lower() == 'true'\n\n# Read — raises KeyError if missing (good for required vars)\ndatabase_url = os.environ['DATABASE_URL']\n```\n\nFor a cleaner approach, use `python-dotenv`:\n```python\nfrom dotenv import load_dotenv\nload_dotenv()  # reads .env file into os.environ\n\napi_key = os.environ['API_KEY']\n```\n\n`.env` file:\n```\nAPI_KEY=sk-abc123\nDEBUG=true\nDATABASE_URL=postgresql://localhost/mydb\n```\n\nFor validated settings with type coercion, use `pydantic-settings`:\n```python\nfrom pydantic_settings import BaseSettings\n\nclass Settings(BaseSettings):\n    api_key: str\n    debug: bool = False\n    port: int = 8000\n    class Config:\n        env_file = '.env'\n\nsettings = Settings()\n```\n\nNever commit `.env` to version control — add it to `.gitignore`.",
+    "score": 145
+  },
+  {
+    "id": 34,
+    "question": "What is the difference between `__str__` and `__repr__` in Python?",
+    "answer": "`__repr__` is for developers — it should be unambiguous and ideally `eval`-able back to the object.\n`__str__` is for end users — it should be readable and human-friendly.\n\n```python\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n    def __repr__(self):\n        return f'Point({self.x!r}, {self.y!r})'\n\n    def __str__(self):\n        return f'({self.x}, {self.y})'\n\np = Point(1.5, 2.5)\nprint(repr(p))   # Point(1.5, 2.5)  — developer view\nprint(str(p))    # (1.5, 2.5)        — user view\nprint(p)         # (1.5, 2.5)        — print() uses __str__\n\n# In f-strings:\nf'{p}'    # calls __str__\nf'{p!r}'  # calls __repr__\n```\n\nIf only `__repr__` is defined, `str()` falls back to it. Always implement `__repr__`; implement `__str__` only when the user-facing format should differ.",
+    "score": 140
+  },
+  {
+    "id": 35,
+    "question": "How do I use Python's `logging` module instead of print statements?",
+    "answer": "```python\nimport logging\n\n# Basic configuration (usually called once at startup)\nlogging.basicConfig(\n    level=logging.INFO,\n    format='%(asctime)s %(levelname)s %(name)s  %(message)s',\n    datefmt='%Y-%m-%d %H:%M:%S',\n)\n\nlogger = logging.getLogger(__name__)  # per-module logger\n\nlogger.debug('Detailed debug info')     # only shown if level=DEBUG\nlogger.info('Server started on :8000')\nlogger.warning('Disk usage > 80%%')\nlogger.error('Failed to connect: %s', err)\nlogger.exception('Unhandled exception')  # logs traceback automatically\n```\n\nLog to both file and console:\n```python\nlogging.basicConfig(\n    handlers=[\n        logging.FileHandler('app.log'),\n        logging.StreamHandler(),\n    ],\n    level=logging.INFO,\n)\n```\n\nBest practices:\n- Use `logger = logging.getLogger(__name__)` in every module\n- Never use `logging.info(f'value={val}')` — use `logging.info('value=%s', val)` to defer formatting\n- Set log level via environment variable: `LOG_LEVEL=DEBUG python app.py`",
+    "score": 130
+  },
+  {
+    "id": 36,
+    "question": "How do I create and use virtual environments in Python?",
+    "answer": "Virtual environments isolate project dependencies so different projects can use different package versions.\n\n```bash\n# Create\npython3 -m venv venv\n\n# Activate\nsource venv/bin/activate          # macOS/Linux\nvenv\\Scripts\\activate.bat         # Windows CMD\nvenv\\Scripts\\Activate.ps1         # Windows PowerShell\n\n# Install packages (now isolated to this venv)\npip install fastapi uvicorn\n\n# Freeze dependencies\npip freeze > requirements.txt\n\n# Install from requirements\npip install -r requirements.txt\n\n# Deactivate\ndeactivate\n```\n\nWith `uv` (modern, faster alternative):\n```bash\npip install uv\nuv venv && source .venv/bin/activate\nuv pip install fastapi\n```\n\nWith `conda`:\n```bash\nconda create -n myenv python=3.11\nconda activate myenv\n```\n\nAdd `venv/` or `.venv/` to `.gitignore`.",
+    "score": 120
+  },
+  {
+    "id": 37,
+    "question": "How do I flatten a nested list in Python?",
+    "answer": "**One level deep — list comprehension:**\n```python\nnested = [[1, 2], [3, 4], [5, 6]]\nflat = [x for sublist in nested for x in sublist]\n# [1, 2, 3, 4, 5, 6]\n```\n\n**One level — `itertools.chain.from_iterable`:**\n```python\nfrom itertools import chain\nflat = list(chain.from_iterable(nested))\n```\n\n**Arbitrarily deep — recursive:**\n```python\ndef flatten(lst):\n    for item in lst:\n        if isinstance(item, list):\n            yield from flatten(item)\n        else:\n            yield item\n\nlist(flatten([1, [2, [3, [4]], 5]]))\n# [1, 2, 3, 4, 5]\n```\n\n**With NumPy for numeric arrays:**\n```python\nimport numpy as np\nflat = np.array(nested).flatten()\n```",
+    "score": 115
+  },
+  {
+    "id": 38,
+    "question": "How do I count occurrences of elements in a Python list?",
+    "answer": "**`list.count()` — single element:**\n```python\nfruits = ['apple', 'banana', 'apple', 'cherry', 'apple']\nfruits.count('apple')  # 3\n```\n\n**`collections.Counter` — all elements at once (recommended):**\n```python\nfrom collections import Counter\n\ncounts = Counter(fruits)\n# Counter({'apple': 3, 'banana': 1, 'cherry': 1})\n\ncounts['apple']          # 3\ncounts.most_common(2)    # [('apple', 3), ('banana', 1)]\n```\n\n**Dict comprehension:**\n```python\ncounts = {x: fruits.count(x) for x in set(fruits)}\n```\n\n**`Counter` on a string:**\n```python\nCounter('mississippi')\n# Counter({'s': 4, 'i': 4, 'p': 2, 'm': 1})\n```\n\nUse `Counter` — it is O(n) and provides useful methods like `most_common()` and arithmetic operations.",
+    "score": 125
+  },
+  {
+    "id": 39,
+    "question": "How do I use Python's `re` module for regular expressions?",
+    "answer": "```python\nimport re\n\ntext = 'My email is alice@example.com and bob@test.org'\n\n# Search — finds first match\nm = re.search(r'\\w+@\\w+\\.\\w+', text)\nif m:\n    print(m.group())   # alice@example.com\n\n# Findall — all non-overlapping matches\nemails = re.findall(r'[\\w.]+@[\\w.]+', text)\n# ['alice@example.com', 'bob@test.org']\n\n# Sub — replace\ncleaned = re.sub(r'\\s+', ' ', 'too   many   spaces')\n# 'too many spaces'\n\n# Split\nparts = re.split(r'[,;\\s]+', 'a, b; c  d')\n# ['a', 'b', 'c', 'd']\n\n# Compile for reuse\npattern = re.compile(r'(\\d{4})-(\\d{2})-(\\d{2})')\nm = pattern.match('2024-01-15')\nif m:\n    year, month, day = m.groups()\n```\n\nFlags: `re.IGNORECASE`, `re.MULTILINE`, `re.DOTALL`.\nAlways use raw strings (`r'...'`) to avoid double-escaping backslashes.",
+    "score": 155
+  },
+  {
+    "id": 40,
+    "question": "How do I use pytest to write tests in Python?",
+    "answer": "```bash\npip install pytest\n```\n\n```python\n# test_math.py\ndef add(a, b):\n    return a + b\n\ndef test_add():\n    assert add(2, 3) == 5\n\ndef test_add_negative():\n    assert add(-1, 1) == 0\n\n# Parametrize\nimport pytest\n\n@pytest.mark.parametrize('a,b,expected', [\n    (2, 3, 5),\n    (-1, 1, 0),\n    (0, 0, 0),\n])\ndef test_add_parametrized(a, b, expected):\n    assert add(a, b) == expected\n\n# Test exceptions\ndef test_raises():\n    with pytest.raises(ZeroDivisionError):\n        1 / 0\n\n# Fixtures\n@pytest.fixture\ndef sample_data():\n    return [1, 2, 3]\n\ndef test_sum(sample_data):\n    assert sum(sample_data) == 6\n```\n\n```bash\npytest                    # run all tests\npytest -v                 # verbose\npytest -k 'negative'      # filter by name\npytest --cov=app          # coverage\n```",
+    "score": 175
+  },
+  {
+    "id": 41,
+    "question": "How does Python's garbage collection and memory management work?",
+    "answer": "Python uses **reference counting** as the primary mechanism: each object tracks how many references point to it; when the count reaches zero, the object is immediately deallocated.\n\n```python\nimport sys\na = [1, 2, 3]\nprint(sys.getrefcount(a))  # 2 (a + the argument to getrefcount)\n```\n\nReference counting cannot handle **circular references** (A → B → A). Python's `gc` module handles these with a cyclic garbage collector:\n```python\nimport gc\ngc.collect()  # manually trigger collection\ngc.disable()  # disable if you manage memory carefully\n```\n\nCommon memory pitfalls:\n```python\n# Accidentally holding a reference\nresults = []\nfor item in large_dataset:\n    results.append(process(item))  # whole list stays in memory\n\n# Better: generator\ndef processed():\n    for item in large_dataset:\n        yield process(item)\n```\n\nUse `__slots__` to reduce instance memory:\n```python\nclass Point:\n    __slots__ = ('x', 'y')\n    def __init__(self, x, y):\n        self.x, self.y = x, y\n```",
+    "score": 190
+  },
+  {
+    "id": 42,
+    "question": "How do I read and write CSV files in Python?",
+    "answer": "**Built-in `csv` module:**\n```python\nimport csv\n\n# Write\nwith open('data.csv', 'w', newline='') as f:\n    writer = csv.DictWriter(f, fieldnames=['name', 'age'])\n    writer.writeheader()\n    writer.writerows([\n        {'name': 'Alice', 'age': 30},\n        {'name': 'Bob',   'age': 25},\n    ])\n\n# Read\nwith open('data.csv', newline='') as f:\n    for row in csv.DictReader(f):\n        print(row['name'], row['age'])\n```\n\n**Pandas (easier for data science):**\n```python\nimport pandas as pd\n\ndf = pd.read_csv('data.csv')\ndf.to_csv('output.csv', index=False)\n\n# Read only specific columns and rows\ndf = pd.read_csv('data.csv', usecols=['name', 'age'], nrows=1000)\n```\n\nAlways open CSV files with `newline=''` on Windows to avoid extra blank rows.\nFor large files, iterate with `csv.DictReader` instead of loading everything into a list.",
+    "score": 120
+  },
+  {
+    "id": 43,
+    "question": "What are Python's dunder (magic) methods?",
+    "answer": "Dunder methods (double underscore) let you define how objects behave with Python's built-in operations.\n\n```python\nclass Vector:\n    def __init__(self, x, y):\n        self.x, self.y = x, y\n\n    # String representations\n    def __repr__(self): return f'Vector({self.x}, {self.y})'\n    def __str__(self):  return f'<{self.x}, {self.y}>'\n\n    # Arithmetic operators\n    def __add__(self, other): return Vector(self.x + other.x, self.y + other.y)\n    def __mul__(self, scalar): return Vector(self.x * scalar, self.y * scalar)\n    def __rmul__(self, scalar): return self.__mul__(scalar)\n\n    # Comparison\n    def __eq__(self, other): return self.x == other.x and self.y == other.y\n    def __len__(self): return 2\n\n    # Container protocol\n    def __iter__(self): yield self.x; yield self.y\n    def __getitem__(self, i): return (self.x, self.y)[i]\n\n    # Truth value\n    def __bool__(self): return self.x != 0 or self.y != 0\n\nv1 = Vector(1, 2)\nv2 = Vector(3, 4)\nprint(v1 + v2)   # <4, 6>\nprint(3 * v1)    # <3, 6>\nprint(list(v1))  # [1, 2]\n```",
+    "score": 165
+  },
+  {
+    "id": 44,
+    "question": "How do I use f-strings for advanced formatting in Python?",
+    "answer": "f-strings (Python 3.6+) support a rich mini-language inside `{}`:\n\n```python\n# Alignment and width\nname = 'Alice'\nprint(f'{name:<10}|')   # 'Alice     |'  left-align\nprint(f'{name:>10}|')   # '     Alice|'  right-align\nprint(f'{name:^10}|')   # '  Alice   |'  centre\n\n# Numbers\npi = 3.14159265\nprint(f'{pi:.2f}')      # '3.14'\nprint(f'{pi:10.3f}')    # '     3.142'\nprint(f'{1234567:,}')   # '1,234,567'\nprint(f'{255:#010x}')   # '0x000000ff'\nprint(f'{0.0025:.2%}')  # '0.25%'\n\n# Debug with = (Python 3.8+)\nx = 42\nprint(f'{x=}')          # 'x=42'\n\n# Nested expressions\ndata = [3, 1, 4, 1, 5]\nprint(f'{sorted(data)}')\n\n# Multiline\nmsg = (\n    f'Name: {name!r}\\n'\n    f'Score: {pi:.1f}'\n)\n```",
+    "score": 145
+  },
+  {
+    "id": 45,
+    "question": "How do I implement a singleton pattern in Python?",
+    "answer": "**Using a module** (simplest — recommended):\n```python\n# config.py  — just import this module; it's loaded once\nDATABASE_URL = 'postgresql://localhost/mydb'\n```\n\n**Using a class with `__new__`:**\n```python\nclass Singleton:\n    _instance = None\n\n    def __new__(cls, *args, **kwargs):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance\n\na = Singleton()\nb = Singleton()\nassert a is b  # True\n```\n\n**Thread-safe singleton:**\n```python\nimport threading\n\nclass Singleton:\n    _instance = None\n    _lock = threading.Lock()\n\n    def __new__(cls):\n        if cls._instance is None:\n            with cls._lock:\n                if cls._instance is None:  # double-checked locking\n                    cls._instance = super().__new__(cls)\n        return cls._instance\n```\n\nIn practice, the module-level approach or dependency injection is usually cleaner than a Singleton class.",
+    "score": 130
+  },
+  {
+    "id": 46,
+    "question": "How do I write a generator that reads a large file efficiently?",
+    "answer": "Generators let you process files larger than RAM by yielding one chunk at a time:\n\n```python\ndef read_lines(path, skip_empty=True):\n    \"\"\"Yield lines from a file one at a time.\"\"\"\n    with open(path, encoding='utf-8') as f:\n        for line in f:\n            line = line.rstrip('\\n')\n            if skip_empty and not line:\n                continue\n            yield line\n\nfor line in read_lines('huge_log.txt'):\n    process(line)  # only one line in memory at a time\n```\n\nChunked reading for binary files:\n```python\ndef read_chunks(path, size=65_536):\n    with open(path, 'rb') as f:\n        while chunk := f.read(size):\n            yield chunk\n\nfor chunk in read_chunks('big_file.bin'):\n    process(chunk)\n```\n\nCSV with generator pipeline:\n```python\nimport csv\n\ndef csv_rows(path):\n    with open(path, newline='') as f:\n        yield from csv.DictReader(f)\n\nhigh_scores = (r for r in csv_rows('data.csv') if int(r['score']) > 90)\n```",
+    "score": 155
+  },
+  {
+    "id": 47,
+    "question": "How do I use Python's `functools` module?",
+    "answer": "```python\nfrom functools import lru_cache, partial, reduce, cached_property, wraps\n\n# lru_cache — memoisation\n@lru_cache(maxsize=128)\ndef fib(n):\n    if n < 2:\n        return n\n    return fib(n-1) + fib(n-2)\n\nprint(fib(50))  # instant, not exponential\nprint(fib.cache_info())  # CacheInfo(hits=48, misses=51, ...)\n\n# partial — pre-fill arguments\nfrom functools import partial\npower_of_2 = partial(pow, 2)\nprint(power_of_2(10))  # 1024\n\n# reduce — fold\nfrom functools import reduce\nproduct = reduce(lambda a, b: a * b, [1, 2, 3, 4, 5])  # 120\n\n# cached_property — computed once, then cached as attribute\nclass Circle:\n    def __init__(self, r):\n        self.r = r\n\n    @cached_property\n    def area(self):\n        import math\n        return math.pi * self.r ** 2\n\n# wraps — preserve metadata in decorators\ndef my_decorator(func):\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs)\n    return wrapper\n```",
+    "score": 145
+  },
+  {
+    "id": 48,
+    "question": "How do I use abstract base classes in Python?",
+    "answer": "Abstract Base Classes (ABCs) define interfaces that subclasses must implement:\n\n```python\nfrom abc import ABC, abstractmethod\n\nclass Shape(ABC):\n    @abstractmethod\n    def area(self) -> float:\n        ...\n\n    @abstractmethod\n    def perimeter(self) -> float:\n        ...\n\n    def describe(self) -> str:  # concrete method\n        return f'{type(self).__name__}: area={self.area():.2f}'\n\n\nclass Circle(Shape):\n    def __init__(self, radius: float):\n        self.radius = radius\n\n    def area(self) -> float:\n        import math\n        return math.pi * self.radius ** 2\n\n    def perimeter(self) -> float:\n        import math\n        return 2 * math.pi * self.radius\n\n\nc = Circle(5)\nprint(c.describe())   # Circle: area=78.54\n\n# Cannot instantiate abstract class\nShape()  # TypeError: Can't instantiate abstract class Shape\n```\n\nRegister a class as a virtual subclass:\n```python\nfrom collections.abc import Iterable\nIterable.register(MyCustomClass)\nassert isinstance(MyCustomClass(), Iterable)  # True\n```",
+    "score": 140
+  },
+  {
+    "id": 49,
+    "question": "How do I handle command-line arguments in Python with argparse?",
+    "answer": "```python\nimport argparse\n\nparser = argparse.ArgumentParser(\n    description='Process some integers.',\n    formatter_class=argparse.ArgumentDefaultsHelpFormatter,\n)\n\n# Positional argument\nparser.add_argument('filename', help='Input file to process')\n\n# Optional argument\nparser.add_argument('-o', '--output', default='out.txt', help='Output file')\nparser.add_argument('-n', '--count', type=int, default=10, help='Number of lines')\nparser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose output')\nparser.add_argument('--format', choices=['json', 'csv', 'tsv'], default='json')\n\nargs = parser.parse_args()\n\nprint(args.filename)   # positional\nprint(args.output)     # optional with default\nprint(args.verbose)    # True/False flag\n```\n\nRun: `python script.py input.txt -n 20 --verbose --format csv`\n\nSubcommands:\n```python\nsubparsers = parser.add_subparsers(dest='command')\ningest = subparsers.add_parser('ingest', help='Ingest data')\ningest.add_argument('source')\n\nexport = subparsers.add_parser('export', help='Export data')\nexport.add_argument('--format', choices=['json', 'csv'])\n```",
+    "score": 125
+  },
+  {
+    "id": 50,
+    "question": "How do I use Python's `multiprocessing` module for parallel CPU-bound tasks?",
+    "answer": "```python\nfrom multiprocessing import Pool, cpu_count\nimport os\n\ndef heavy_task(n):\n    \"\"\"CPU-bound: sum of squares up to n.\"\"\"\n    return sum(i * i for i in range(n))\n\nif __name__ == '__main__':  # required guard on Windows/macOS\n    data = [10_000_000] * 8\n\n    # Pool.map — easiest\n    with Pool(processes=cpu_count()) as pool:\n        results = pool.map(heavy_task, data)\n\n    print(results)\n\n# ProcessPoolExecutor (futures API — easier error handling)\nfrom concurrent.futures import ProcessPoolExecutor, as_completed\n\nif __name__ == '__main__':\n    with ProcessPoolExecutor() as executor:\n        futures = {executor.submit(heavy_task, n): n for n in data}\n        for future in as_completed(futures):\n            n = futures[future]\n            try:\n                print(f'n={n}: {future.result()}')\n            except Exception as e:\n                print(f'n={n} failed: {e}')\n```\n\nKey rules:\n- Always guard with `if __name__ == '__main__':` on Windows/macOS\n- Avoid sharing state between processes — prefer returning results\n- For I/O-bound work, use `ThreadPoolExecutor` or `asyncio` instead",
+    "score": 185
+  }
+]
